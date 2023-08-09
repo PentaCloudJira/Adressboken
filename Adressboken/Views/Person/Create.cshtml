@@ -1,0 +1,23 @@
+﻿@model Person
+
+<h1>Create New Person</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Förnamn">Förnamn</label>
+        <input asp-for="Förnamn" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Efternamn">Efternamn</label>
+        <input asp-for="Efternamn" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Adress">Adress</label>
+        <input asp-for="Adress" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Telefonnummer">Telefonnummer</label>
+        <input asp-for="Telefonnummer" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

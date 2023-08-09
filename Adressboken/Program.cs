@@ -1,3 +1,5 @@
+using MongoDB.Driver;
+
 namespace Adressboken
 {
     public class Program
@@ -8,6 +10,14 @@ namespace Adressboken
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Lägg till MongoDB-anslutningen
+            var connectionString = "mongodb+srv://martinsandung:IDjcjDU7aeePGhEX@cluster1.chdrb4f.mongodb.net/?retryWrites=true&w=majority";
+            var databaseName = "Person"; // Ersätt med ditt databasnamn
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+            builder.Services.AddSingleton(database);
 
             var app = builder.Build();
 
