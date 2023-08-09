@@ -57,7 +57,7 @@ namespace Adressboken.Controllers
             return View(address);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             await _addressCollection.DeleteOneAsync(a => a.Id == id);

@@ -13,7 +13,7 @@ namespace Adressboken
 
             // Lägg till MongoDB-anslutningen
             var connectionString = "mongodb+srv://martinsandung:IDjcjDU7aeePGhEX@cluster1.chdrb4f.mongodb.net/?retryWrites=true&w=majority";
-            var databaseName = "Person"; // Ersätt med ditt databasnamn
+            var databaseName = "Person"; 
 
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(databaseName);
