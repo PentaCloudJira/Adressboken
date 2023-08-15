@@ -1,8 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .display-4 {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #343a40;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        /* Ny CSS för att justera bilden */
+        .container img {
+            max-width: 100%; /* Ändra storleken här, t.ex. 70% */
+            display: block; /* För att centrera bilden horisontellt */
+            margin: 0 auto; /* För att centrera bilden horisontellt */
+            margin-top: 20px; /* Justera avståndet över bilden */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-4">Bengts Bilservice</h1>
+        <img src="https://fra1.digitaloceanspaces.com/knivstamotor/cmsplugins/parallax_image_header/images/1591991335-bilverkstad.jpg">
+    </div>
+</body>
+</html>
+
