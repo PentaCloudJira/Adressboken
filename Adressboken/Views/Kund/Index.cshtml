@@ -1,0 +1,38 @@
+﻿@model List<Kund>
+
+<h1>Kundregister</h1>
+
+<p>
+    <a asp-action="Create">Lägg till kund</a>
+</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Namn</th>
+        <th>Adress</th>
+        <th>Telefonnummer</th>
+        <th>Email</th>
+        <th>Bilmodell</th>
+        <th>Årsmodell</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var address in Model)
+    {
+        <tr>
+            <td>@address.Namn</td>
+            <td>@address.Adress</td>
+            <td>@address.Telefonnummer</td>
+            <td>@address.Email</td>
+            <td>@address.Bilmodell</td>
+            <td>@address.Årsmodell</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@address.Id">Ändra</a> |
+                <a asp-action="Delete" asp-route-id="@address.Id">Ta bort</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

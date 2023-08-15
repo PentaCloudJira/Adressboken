@@ -3,13 +3,13 @@ using MongoDB.Driver;
 
 namespace Adressboken.Controllers
 {
-    public class PersonController : Controller
+    public class KundController : Controller
     {
-        private readonly IMongoCollection<Person> _addressCollection;
+        private readonly IMongoCollection<Kund> _addressCollection;
 
-        public PersonController(IMongoDatabase database)
+        public KundController(IMongoDatabase database)
         {
-            _addressCollection = database.GetCollection<Person>("addresses");
+            _addressCollection = database.GetCollection<Kund>("addresses");
         }
 
         public async Task<IActionResult> Index()
@@ -24,7 +24,7 @@ namespace Adressboken.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Person address)
+        public async Task<IActionResult> Create(Kund address)
         {
             await _addressCollection.InsertOneAsync(address);
             return RedirectToAction("Index");
@@ -41,7 +41,7 @@ namespace Adressboken.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string id, Person updatedAddress)
+        public async Task<IActionResult> Edit(string id, Kund updatedAddress)
         {
             await _addressCollection.ReplaceOneAsync(a => a.Id == id, updatedAddress);
             return RedirectToAction("Index");
