@@ -1,18 +1,20 @@
-﻿@model List<Person>
+﻿@model List<Kund>
 
-<h1>Telefonbok</h1>
+<h1>Kundregister</h1>
 
 <p>
-    <a asp-action="Create">Add New Address</a>
+    <a asp-action="Create">Lägg till kund</a>
 </p>
 
 <table class="table">
     <thead>
     <tr>
-        <th>Förnamn</th>
-        <th>Efternamn</th>
+        <th>Namn</th>
         <th>Adress</th>
         <th>Telefonnummer</th>
+        <th>Email</th>
+        <th>Bilmodell</th>
+        <th>Årsmodell</th>
         <th></th>
     </tr>
     </thead>
@@ -20,13 +22,15 @@
     @foreach (var address in Model)
     {
         <tr>
-            <td>@address.Förnamn</td>
-            <td>@address.Efternamn</td>
+            <td>@address.Namn</td>
             <td>@address.Adress</td>
             <td>@address.Telefonnummer</td>
+            <td>@address.Email</td>
+            <td>@address.Bilmodell</td>
+            <td>@address.Årsmodell</td>
             <td>
-                <a asp-action="Edit" asp-route-id="@address.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@address.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@address.Id">Ändra</a> |
+                <a asp-action="Delete" asp-route-id="@address.Id">Ta bort</a>
             </td>
         </tr>
     }
