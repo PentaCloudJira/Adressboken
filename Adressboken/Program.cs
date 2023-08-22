@@ -14,7 +14,7 @@ namespace Adressboken
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // Lägg till MongoDB-anslutningen
+            // Lï¿½gg till MongoDB-anslutningen
             var connectionString = "mongodb+srv://martinsandung:IDjcjDU7aeePGhEX@cluster1.chdrb4f.mongodb.net/?retryWrites=true&w=majority";
             var databaseName = "Person"; 
 
