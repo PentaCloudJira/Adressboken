@@ -1,3 +1,5 @@
+using Adressboken.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using MongoDB.Driver;
 
 namespace Adressboken
@@ -7,7 +9,8 @@ namespace Adressboken
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            var emailSettings = builder.Configuration.GetSection(nameof(EmailSettings)).Get<EmailSettings>();
+            
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -18,6 +21,9 @@ namespace Adressboken
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(databaseName);
             builder.Services.AddSingleton(database);
+
+            builder.Services.AddSingleton(emailSettings);
+            builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
             var app = builder.Build();
 

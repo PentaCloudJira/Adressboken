@@ -18,6 +18,6 @@ public class Kund
 
     public string? Årsmodell {get; set;}
 
-    public bool ReparationKlar {get; set;}
+    public bool ReparationKlar { get; set; } = false;
 }
 
