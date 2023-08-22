@@ -15,6 +15,7 @@
         <th>Email</th>
         <th>Bilmodell</th>
         <th>Årsmodell</th>
+        <th>ReparationKlar</th>
         <th></th>
     </tr>
     </thead>
@@ -28,6 +29,7 @@
             <td>@address.Email</td>
             <td>@address.Bilmodell</td>
             <td>@address.Årsmodell</td>
+            <td>@address.ReparationKlar</td>
             <td>
                 <a asp-action="Edit" asp-route-id="@address.Id">Ändra</a> |
                 <a asp-action="Delete" asp-route-id="@address.Id">Ta bort</a>
