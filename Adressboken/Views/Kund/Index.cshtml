@@ -5,6 +5,15 @@
 <p>
     <a asp-action="Create">Lägg till kund</a>
 </p>
+<form id="search-form" class="form-inline">
+    <div class="input-group">
+        <input type="text" id="query" class="form-control custom-search-input" placeholder="Sök efter kund...">
+        <div class="input-group-append">
+            <button id="search-button" class="btn btn-primary" type="button">Sök</button>
+        </div>
+    </div>
+</form>
+
 
 <table class="table">
     <thead>
@@ -36,3 +45,14 @@
     }
     </tbody>
 </table>
+
+<div id="search-results"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function() {
+        $('#search-button').click(function() {
+            var query = $('#query').val();
+            window.location.href = '/Kund/Search?query=' + query;
+        });
+    });
+</script>

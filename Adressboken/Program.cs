@@ -13,9 +13,11 @@ namespace Adressboken
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+
             // Lägg till autentisering
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie();
+
 
             // L�gg till MongoDB-anslutningen
             var connectionString = "mongodb+srv://martinsandung:IDjcjDU7aeePGhEX@cluster1.chdrb4f.mongodb.net/?retryWrites=true&w=majority";
@@ -42,6 +44,24 @@ namespace Adressboken
 
             app.UseAuthentication(); 
             app.UseAuthorization();
+
+             app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "search",
+                    pattern: "Kund/Search",
+                    defaults: new { controller = "Kund", action = "Search" });
+
+                endpoints.MapControllerRoute(
+                    name: "searchResults",
+                    pattern: "Kund/SearchResults",
+                    defaults: new { controller = "Kund", action = "SearchResults" });
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+            
 
             app.MapControllerRoute(
                 name: "default",

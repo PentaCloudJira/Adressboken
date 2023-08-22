@@ -67,5 +67,25 @@ namespace Adressboken.Controllers
             await _addressCollection.DeleteOneAsync(a => a.Id == id);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+       public async Task<IActionResult> Search(string query)
+{
+    if (query == null)
+    {
+        // Handle the case where query is null, such as showing all results
+        var allResults = await _addressCollection.Find(_ => true).ToListAsync();
+        return PartialView("_SearchResults", allResults);
+    }
+
+    var searchResults = await _addressCollection.Find(a =>
+        (a.Namn != null && a.Namn.Contains(query)) ||
+        (a.Adress != null && a.Adress.Contains(query)) ||
+        (a.Telefonnummer != null && a.Telefonnummer.Contains(query)) ||
+        (a.Email != null && a.Email.Contains(query)) ||
+        (a.Bilmodell != null && a.Bilmodell.Contains(query)) ||
+        (a.Årsmodell != null && a.Årsmodell.Contains(query))).ToListAsync();
+
+    return PartialView("_SearchResults", searchResults);
+}
     }
 }
