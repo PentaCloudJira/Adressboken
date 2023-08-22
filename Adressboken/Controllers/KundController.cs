@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 
 namespace Adressboken.Controllers
@@ -9,10 +10,12 @@ namespace Adressboken.Controllers
     public class KundController : Controller
     {
         private readonly IMongoCollection<Kund> _addressCollection;
+        private readonly IEmailSender emailSender;
 
-        public KundController(IMongoDatabase database)
+        public KundController(IMongoDatabase database, IEmailSender emailSender)
         {
             _addressCollection = database.GetCollection<Kund>("addresses");
+            this.emailSender = emailSender;
         }
 
         //Lagt till Authentisering
@@ -67,25 +70,64 @@ namespace Adressboken.Controllers
             await _addressCollection.DeleteOneAsync(a => a.Id == id);
             return RedirectToAction("Index");
         }
+
         [HttpGet]
-       public async Task<IActionResult> Search(string query)
-{
-    if (query == null)
-    {
-        // Handle the case where query is null, such as showing all results
-        var allResults = await _addressCollection.Find(_ => true).ToListAsync();
-        return PartialView("_SearchResults", allResults);
-    }
+        public async Task<IActionResult> Search(string query)
+        {
+            if (query == null)
+            {
+                // Handle the case where query is null, such as showing all results
+                var allResults = await _addressCollection.Find(_ => true).ToListAsync();
+                return PartialView("_SearchResults", allResults);
+            }
 
-    var searchResults = await _addressCollection.Find(a =>
-        (a.Namn != null && a.Namn.Contains(query)) ||
-        (a.Adress != null && a.Adress.Contains(query)) ||
-        (a.Telefonnummer != null && a.Telefonnummer.Contains(query)) ||
-        (a.Email != null && a.Email.Contains(query)) ||
-        (a.Bilmodell != null && a.Bilmodell.Contains(query)) ||
-        (a.Årsmodell != null && a.Årsmodell.Contains(query))).ToListAsync();
+            var searchResults = await _addressCollection.Find(a =>
+                (a.Namn != null && a.Namn.Contains(query)) ||
+                (a.Adress != null && a.Adress.Contains(query)) ||
+                (a.Telefonnummer != null && a.Telefonnummer.Contains(query)) ||
+                (a.Email != null && a.Email.Contains(query)) ||
+                (a.Bilmodell != null && a.Bilmodell.Contains(query)) ||
+                (a.Årsmodell != null && a.Årsmodell.Contains(query))).ToListAsync();
 
-    return PartialView("_SearchResults", searchResults);
-}
+            return PartialView("_SearchResults", searchResults);
+        }
+
+        public async Task<IActionResult> ReparationKlar(string id)
+        {
+            var address = await _addressCollection.Find(a => a.Id == id).FirstOrDefaultAsync();
+            if (address == null)
+            {
+                return NotFound();
+            }
+
+            if (!address.ReparationKlar)
+            {
+                address.ReparationKlar = true;
+
+                // Uppdatera dokumentet med den nya statusen
+                await _addressCollection.ReplaceOneAsync(a => a.Id == id, address);
+
+                // Skicka e-post till kunden
+                if (!string.IsNullOrEmpty(address.Email) && address.ReparationKlar)
+                {
+                    string subject = "Reparationen är klar";
+                    string message = "Din reparation är klar. Vänligen kontakta oss för att hämta din bil.";
+
+                    try
+                    {
+                        // Skicka e-post till kunden med din EmailSender
+                        await emailSender.SendEmailAsync(address.Email, subject, message);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Hantera eventuella fel vid sändning av e-post
+                        // Logga felet eller visa felmeddelande på klienten
+                    }
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
