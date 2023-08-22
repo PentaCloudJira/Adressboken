@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Adressboken.Controllers
 {
+    [Authorize]
     public class KundController : Controller
     {
         private readonly IMongoCollection<Kund> _addressCollection;
@@ -12,6 +15,7 @@ namespace Adressboken.Controllers
             _addressCollection = database.GetCollection<Kund>("addresses");
         }
 
+        //Lagt till Authentisering
         public async Task<IActionResult> Index()
         {
             var addresses = await _addressCollection.Find(_ => true).ToListAsync();

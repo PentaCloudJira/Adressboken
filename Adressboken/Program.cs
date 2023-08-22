@@ -1,4 +1,6 @@
 using MongoDB.Driver;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Adressboken
 {
@@ -11,7 +13,11 @@ namespace Adressboken
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // Lägg till MongoDB-anslutningen
+            // LÃ¤gg till autentisering
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie();
+
+            // Lï¿½gg till MongoDB-anslutningen
             var connectionString = "mongodb+srv://martinsandung:IDjcjDU7aeePGhEX@cluster1.chdrb4f.mongodb.net/?retryWrites=true&w=majority";
             var databaseName = "Person"; 
 
@@ -34,6 +40,7 @@ namespace Adressboken
 
             app.UseRouting();
 
+            app.UseAuthentication(); 
             app.UseAuthorization();
 
             app.MapControllerRoute(

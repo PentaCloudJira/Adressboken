@@ -13,5 +13,5 @@ public class LoginViewModel
     //Vill Bengt ha lösenordet sparat?
     //public bool RememberMe { get; set; }
 
-    //Ska allt vara på svenska?
+    
 }
