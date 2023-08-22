@@ -37,6 +37,20 @@
             <td>@address.Email</td>
             <td>@address.Bilmodell</td>
             <td>@address.Årsmodell</td>
+                <td>
+                    @if (address.ReparationKlar)
+                    {
+                        <form method="post" asp-action="ReparationKlar" asp-route-id="@address.Id">
+                            <button type="submit" class="btn btn-success">Klar</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-action="ReparationKlar" asp-route-id="@address.Id">
+                            <button type="submit" class="btn btn-danger">Ej färdig</button>
+                        </form>
+                    }
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@address.Id">Ändra</a> |
                 <a asp-action="Delete" asp-route-id="@address.Id">Ta bort</a>
@@ -53,6 +67,16 @@
         $('#search-button').click(function() {
             var query = $('#query').val();
             window.location.href = '/Kund/Search?query=' + query;
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(".btn-mark-as-clear").click(function () {
+            $(this).toggleClass("btn-danger btn-success");
+            $(this).text(function (i, text) {
+                return text === "Markera som klar" ? "Klar" : "Markera som klar";
+            });
         });
     });
 </script>
