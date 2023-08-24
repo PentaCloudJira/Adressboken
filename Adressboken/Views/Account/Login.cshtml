@@ -24,13 +24,15 @@
         label {
             font-weight: bold;
         }
-        .btn-login {
-            background-color: #007bff;
+        .btn-custom {
+            background-color: #6c757d; /* Gray color for the buttons */
             color: #fff;
             border: none;
+            width: 100%; /* Make the button full width */
+            margin-top: 10px; /* Adjust margin as needed */
         }
-        .btn-login:hover {
-            background-color: #0056b3;
+        .btn-custom:hover {
+            background-color: #5a6268; /* Darken the color on hover */
         }
     </style>
 </head>
@@ -50,9 +52,15 @@
                     <input type="password" id="Password" asp-for="Password" class="form-control" required />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-login btn-block">Login</button>
+                <button type="submit" class="btn btn-custom btn-block">Login</button>
             </form>
+        </div>
+        <div class="login-container">
+            <a href="@Url.Action("CognitoLogin", "Account")" class="btn btn-custom">Logga in med Cognito</a>
         </div>
     </div>
 </body>
 </html>
+
+
+

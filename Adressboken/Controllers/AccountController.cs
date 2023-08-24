@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Adressboken.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace Adressboken.Controllers;
 public class AccountController : Controller
 {
     // Mocked user data
     private const string MockedUsername = "bengt";
-    private const string MockedPassword = "trabant"; // OBS! Byt ut senare mot en hashad variant.
+    private const string MockedPassword = "trabant"; // Ev byt ut senare mot en hashad variant?
     public IActionResult Login()
     {
     return View();
@@ -38,9 +39,16 @@ public class AccountController : Controller
             ModelState.AddModelError(string.Empty, "Nu blev det knas. Försök igen"); // Generellt felmeddelande
             return View(model);
     }
+    public IActionResult CognitoLogin()
+    {
+        return Challenge(
+        new AuthenticationProperties
+        {
+        RedirectUri = Url.Action("Index", "Kund")
+        },
+        OpenIdConnectDefaults.AuthenticationScheme);
+    }
 
-
-   
     [Authorize]
     public IActionResult Logout()
     {
@@ -49,7 +57,8 @@ public class AccountController : Controller
         {
             RedirectUri = Url.Action("Index", "Home")
         },
-        CookieAuthenticationDefaults.AuthenticationScheme);
+        CookieAuthenticationDefaults.AuthenticationScheme,
+        OpenIdConnectDefaults.AuthenticationScheme);
     }
 
 }
