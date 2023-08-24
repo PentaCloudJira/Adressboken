@@ -55,7 +55,7 @@ namespace Adressboken
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(databaseName);
             builder.Services.AddSingleton(database);
-            builder.Services.AddSingleton(emailSettings);
+            
             builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
             var app = builder.Build();

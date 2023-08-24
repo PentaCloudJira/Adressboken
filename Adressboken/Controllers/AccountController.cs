@@ -53,12 +53,12 @@ public class AccountController : Controller
     public IActionResult Logout()
     {
         return SignOut(
-        new AuthenticationProperties
-        {
-            RedirectUri = Url.Action("Index", "Home")
-        },
-        CookieAuthenticationDefaults.AuthenticationScheme,
-        OpenIdConnectDefaults.AuthenticationScheme);
+            new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("Index", "Home")
+            },
+            CookieAuthenticationDefaults.AuthenticationScheme);
+        //OpenIdConnectDefaults.AuthenticationScheme);
     }
 
 }
