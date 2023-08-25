@@ -57,8 +57,8 @@ public class AccountController : Controller
             {
                 RedirectUri = Url.Action("Index", "Home")
             },
-            CookieAuthenticationDefaults.AuthenticationScheme);
-        //OpenIdConnectDefaults.AuthenticationScheme);
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            OpenIdConnectDefaults.AuthenticationScheme);
     }
 
 }

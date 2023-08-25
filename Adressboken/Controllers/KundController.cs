@@ -120,7 +120,7 @@ namespace Adressboken.Controllers
                     }
                     catch (Exception ex)
                     {
-                        // Hantera eventuella fel vid sändning av e-post
+                        Console.WriteLine("Gick ej att maila!");
                         // Logga felet eller visa felmeddelande på klienten
                     }
                 }
