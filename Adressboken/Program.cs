@@ -2,6 +2,7 @@ using MongoDB.Driver;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Adressboken.Data;
+using Adressboken.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Adressboken
@@ -15,7 +16,11 @@ namespace Adressboken
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddHttpClient<RegCheckApiService>(client =>
+            {
+                client.BaseAddress = new Uri("https://www.regcheck.org.uk/api/reg.asmx/");
+            });
+            builder.Services.AddScoped<RegCheckApiService>();
 
             // Lägg till autentisering
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
