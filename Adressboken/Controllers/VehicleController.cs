@@ -1,9 +1,11 @@
 ﻿using Adressboken.Models;
 using Adressboken.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Adressboken.Controllers
 {
+    [Authorize]
     public class VehicleController : Controller
     {
         private readonly RegCheckApiService _regCheckApiService;
