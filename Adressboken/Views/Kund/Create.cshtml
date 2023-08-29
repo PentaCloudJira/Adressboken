@@ -1,32 +1,81 @@
 ﻿@model Kund
 
-<h1>Lägg till ny kund</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lägg till ny kund - Adressboken</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/Adressboken.styles.css" asp-append-version="true">
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Namn">Namn</label>
-        <input asp-for="Namn" class="form-control" />
+    <style>
+        /* Form styling */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        /* Button styling */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Your header content here -->
+    </header>
+    <div class="container">
+        <div class="form-container">
+            <h1 class="text-center">Lägg till ny kund</h1>
+
+            <form asp-action="Create">
+                <div class="form-group">
+                    <label asp-for="Namn">Namn</label>
+                    <input asp-for="Namn" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Adress">Adress</label>
+                    <input asp-for="Adress" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Telefonnummer">Telefonnummer</label>
+                    <input asp-for="Telefonnummer" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Bilmodell">Bilmodell</label>
+                    <input asp-for="Bilmodell" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Årsmodell">Årsmodell</label>
+                    <input asp-for="Årsmodell" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Skapa kund</button>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Adress">Adress</label>
-        <input asp-for="Adress" class="form-control" />
-    </div>
-   
-    <div class="form-group">
-        <label asp-for="Telefonnummer">Telefonnummer</label>
-        <input asp-for="Telefonnummer" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Email">Email</label>
-        <input asp-for="Email" class="form-control" />
-    </div>
-     <div class="form-group">
-        <label asp-for="Bilmodell">Bilmodell</label>
-        <input asp-for="Bilmodell" class="form-control" />
-    </div>
-      <div class="form-group">
-        <label asp-for="Årsmodell">Årsmodell</label>
-        <input asp-for="Årsmodell" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
+    <footer>
+        <!-- Your footer content here -->
+    </footer>
+</body>
+</html>
