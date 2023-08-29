@@ -1,28 +1,30 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
+﻿/* Ensure the brand text breaks as needed and aligns at the center */
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
 
+/* Apply a consistent color for links */
 a {
   color: #0077cc;
 }
 
+/* Customize primary button appearance */
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
 
+/* Style for active navigation pills */
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
 
+/* Add borders to top and bottom */
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
@@ -30,15 +32,18 @@ a {
   border-bottom: 1px solid #e5e5e5;
 }
 
+/* Apply a subtle box shadow */
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+/* Style for specific button class */
 button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
 
+/* Style for footer at the bottom of the page */
 .footer {
   position: absolute;
   bottom: 0;

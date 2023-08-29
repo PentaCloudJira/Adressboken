@@ -1,7 +1,7 @@
 @model List<Kund>
-
-<!DOCTYPE html>
-<html>
+@{
+    Layout = "_Layout";
+}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,114 +9,23 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Adressboken.styles.css" asp-append-version="true" />
-
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            font-size: 40px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        form {
-            margin-top: 20px;
-        }
-
-        #query {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-right: 10px;
-        }
-
-        #search-button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        #search-button:hover {
-            background-color: #0056b3;
-        }
-
-        footer {
-            background-color: #f8f8f8;
-            padding: 10px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Adressboken</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Hem</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Kund" asp-action="Index">Kundregister</a>
-                        </li>
-                           <li class="nav-item">
-                              @if (Context.User.Identity.IsAuthenticated)
-                            {
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logga ut</a>
-                            }
-                            else
-                            {
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Logga in</a>
-                            }
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <h1>Resultat</h1>
+        <h1>Sök resultat</h1>
+
         <p>
             <a asp-action="Create">Lägg till kund</a>
         </p>
-        <form id="search-form">
-            <input type="text" id="query" placeholder="Sök efter kund...">
-            <button id="search-button" type="button">Sök</button>
+        <form id="search-form" class="form-inline">
+            <div class="input-group">
+                <input type="text" id="query" class="form-control custom-search-input" placeholder="Sök efter kund...">
+                <div class="input-group-append">
+                    <button id="search-button" class="btn btn-primary" type="button">Sök</button>
+                </div>
+            </div>
         </form>
-        <table>
+
+        <table class="table">
             <thead>
                 <tr>
                     <th>Namn</th>
@@ -125,7 +34,7 @@
                     <th>Email</th>
                     <th>Bilmodell</th>
                     <th>Årsmodell</th>
-                    <th>Åtgärder</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -139,6 +48,20 @@
                         <td>@address.Bilmodell</td>
                         <td>@address.Årsmodell</td>
                         <td>
+                            @if (address.ReparationKlar)
+                            {
+                                <form method="post" asp-action="ReparationKlar" asp-route-id="@address.Id">
+                                    <button type="submit" class="btn btn-success">Klar</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form method="post" asp-action="ReparationKlar" asp-route-id="@address.Id">
+                                    <button type="submit" class="btn btn-danger">Ej färdig</button>
+                                </form>
+                            }
+                        </td>
+                        <td>
                             <a asp-action="Edit" asp-route-id="@address.Id">Ändra</a> |
                             <a asp-action="Delete" asp-route-id="@address.Id">Ta bort</a>
                         </td>
@@ -146,16 +69,27 @@
                 }
             </tbody>
         </table>
+
         <div id="search-results"></div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(function() {
-            $('#search-button').click(function() {
+        $(function () {
+            $('#search-button').click(function () {
                 var query = $('#query').val();
                 window.location.href = '/Kund/Search?query=' + query;
             });
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $(".btn-mark-as-clear").click(function () {
+                $(this).toggleClass("btn-danger btn-success");
+                $(this).text(function (i, text) {
+                    return text === "Markera som klar" ? "Klar" : "Markera som klar";
+                });
+            });
+        });
+    </script>
 </body>
-</html>

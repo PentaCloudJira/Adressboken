@@ -1,33 +1,78 @@
 ﻿@model Kund
 
-<h1>Edit Address</h1>
+@{
+    Layout = "_Layout";
+}
 
-<form asp-action="Edit" asp-route-id="@Model.Id">
-    <input type="hidden" asp-for="Id" />
-    <div class="form-group">
-        <label asp-for="Namn">Namn</label>
-        <input asp-for="Namn" class="form-control" />
+<style>
+    .edit-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .edit-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        font-weight: bold;
+    }
+    .form-group input {
+        border-radius: 5px;
+    }
+    .form-group input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="edit-container">
+                <h1 class="edit-header">Edit Address</h1>
+                <form asp-action="Edit" asp-route-id="@Model.Id">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Namn">Namn:</label>
+                        <input asp-for="Namn" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Adress">Adress:</label>
+                        <input asp-for="Adress" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Telefonnummer">Telefonnummer:</label>
+                        <input asp-for="Telefonnummer" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email">Email:</label>
+                        <input asp-for="Email" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Bilmodell">Bilmodell:</label>
+                        <input asp-for="Bilmodell" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Årsmodell">Årsmodell:</label>
+                        <input asp-for="Årsmodell" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Adress">Adress</label>
-        <input asp-for="Adress" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Telefonnummer">Telefonnummer</label>
-        <input asp-for="Telefonnummer" class="form-control" />
-    </div>
-     <div class="form-group">
-        <label asp-for="Email">Email</label>
-        <input asp-for="Email" class="form-control" />
-    </div>
-     <div class="form-group">
-        <label asp-for="Bilmodell">Bilmodell</label>
-        <input asp-for="Bilmodell" class="form-control" />
-    </div>
-     <div class="form-group">
-        <label asp-for="Årsmodell">Årsmodell</label>
-        <input asp-for="Årsmodell" class="form-control" />
-    </div>
-    
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
+</div>
