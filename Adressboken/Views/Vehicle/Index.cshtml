@@ -2,21 +2,53 @@
 
 <h2>Sök på regnr.</h2>
 
-@using (Html.BeginForm("Search", "Vehicle", FormMethod.Post))
+<div class="d-flex justify-content-between">
+    @using (Html.BeginForm("Search", "Vehicle", FormMethod.Post, new { @class = "form-inline" }))
+    {
+        <div class="input-group">
+            
+            @Html.TextBoxFor(m => m.Regnummer, new { @class = "form-control", @placeholder = "Sök efter fordon..." })
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Sök</button>
+            </div>
+        </div>
+    }
+</div>
+
+@if (Model?.VehicleDetails != null)
 {
-    <div class="form-group">
-        @Html.LabelFor(m => m.Regnummer)
-        @Html.TextBoxFor(m => m.Regnummer, new { @class = "form-control" })
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Bildata:</h2>
+            <strong>Märke och modell:</strong> @Model.VehicleDetails?.CarMake?.CurrentTextValue @Model.VehicleDetails?.CarModel?.CurrentTextValue
+            <br />
+            <strong>Årsmodell:</strong> @Model.VehicleDetails?.RegistrationYear
+            <br />
+            <strong>Motorstorlek:</strong> @Model.VehicleDetails?.EngineSize?.CurrentTextValue
+            <br />
+            <strong>Bränsle:</strong> @Model.VehicleDetails?.FuelType?.CurrentTextValue
+            <br />
+            <strong>Kaross:</strong> @Model.VehicleDetails?.BodyStyle?.CurrentTextValue
+            <br />
+            <strong>Färg:</strong> @Model.VehicleDetails?.Colour
+            <br />
+            <strong>I bruk:</strong> @Model.VehicleDetails?.RegistrationDate
+            <br />
+            <strong>Märke:</strong> @Model.VehicleDetails?.MakeDescription?.CurrentTextValue
+            <br />
+            <strong>Modell:</strong> @Model.VehicleDetails?.ModelDescription?.CurrentTextValue
+            <br />
+            <strong>Antal säten:</strong> @Model.VehicleDetails?.NumberOfSeats?.CurrentTextValue
+            <br />
+            <strong>VIN:</strong> @Model.VehicleDetails?.VechileIdentificationNumber
+            <br />
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="@Model.VehicleDetails?.ImageUrl" alt="Vehicle Image" class="img-fluid rounded" />
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Sök</button>
 }
 
-@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-{
-    <div class="alert alert-danger mt-3">
-        @ViewBag.ErrorMessage
-    </div>
-}
 
 
 

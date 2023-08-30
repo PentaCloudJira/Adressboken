@@ -20,24 +20,35 @@ namespace Adressboken.Controllers
             return View();
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> SearchAsync(VehicleSearchViewModel viewModel)
+        public async Task<IActionResult> Search(VehicleSearchViewModel viewModel)
         {
-            string registrationNumber = viewModel.Regnummer;
-
-            // Anropa RegCheckApiService för att söka efter fordonets uppgifter
-            var vehicleDetails = await _regCheckApiService.GetVehicleDetailsAsync(registrationNumber);
-
-            if (vehicleDetails != null)
+            if (!string.IsNullOrEmpty(viewModel.Regnummer))
             {
-                return View("SearchResult", vehicleDetails);
+                string registrationNumber = viewModel.Regnummer;
+
+                // Anropa RegCheckApiService för att söka efter fordonets uppgifter
+                var vehicleDetails = await _regCheckApiService.GetVehicleDetailsAsync(registrationNumber);
+
+                viewModel.VehicleDetails = vehicleDetails;
+
+                if (vehicleDetails == null)
+                {
+                    ViewBag.ErrorMessage = "No vehicle details found.";
+                }
             }
             else
             {
-                ViewBag.ErrorMessage = "No vehicle details found.";
-                return View("Index");
+                viewModel.VehicleDetails = null;
             }
+
+            return View("Index", viewModel);
         }
+
+
+
+
 
 
     }

@@ -1,32 +1,53 @@
-﻿@model RegCheckApiResponse
+﻿@model Adressboken.Models.VehicleSearchViewModel
 
-<h2>Bildata:</h2>
+<h2>Sök på regnr.</h2>
 
-<div class="row">
-    <!-- Detaljer kolumn -->
-    <div class="col-md-8">
-        <div class="details">
-            <strong>Märke och modell:</strong> @Model.CarMake.CurrentTextValue @Model.CarModel.CurrentTextValue<br />
-            <strong>Årsmodell:</strong> @Model.RegistrationYear<br />
-            <strong>Motorstorlek:</strong> @Model.EngineSize.CurrentTextValue<br />
-            <strong>Bränsle:</strong> @Model.FuelType.CurrentTextValue<br />
-            <strong>Kaross:</strong> @Model.BodyStyle.CurrentTextValue<br />
-            <strong>Färg:</strong> @Model.Colour<br />
-            <strong>I bruk:</strong> @Model.RegistrationDate<br />
-            <strong>Märke:</strong> @Model.MakeDescription.CurrentTextValue<br />
-            <strong>Modell:</strong> @Model.ModelDescription.CurrentTextValue<br />
-            <strong>Antal säten:</strong> @Model.NumberOfSeats.CurrentTextValue<br />
-            <strong>VIN:</strong> @Model.VechileIdentificationNumber<br />
+<div class="d-flex justify-content-between">
+    @using (Html.BeginForm("Search", "Vehicle", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Regnummer, new { @class = "mr-2" })
+            @Html.TextBoxFor(m => m.Regnummer, new { @class = "form-control" })
         </div>
-    </div>
-
-    <!-- Bild kolumn -->
-    <div class="col-md-4">
-        <div class="image text-center">
-            <img src="@Model.ImageUrl" alt="Vehicle Image" class="img-fluid rounded" />
-        </div>
-    </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    }
 </div>
+
+@if (Model?.VehicleDetails != null)
+{
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Bildata:</h2>
+            <strong>Märke och modell:</strong> @Model.VehicleDetails?.CarMake?.CurrentTextValue @Model.VehicleDetails?.CarModel?.CurrentTextValue
+            <br />
+            <strong>Årsmodell:</strong> @Model.VehicleDetails?.RegistrationYear
+            <br />
+            <strong>Motorstorlek:</strong> @Model.VehicleDetails?.EngineSize?.CurrentTextValue
+            <br />
+            <strong>Bränsle:</strong> @Model.VehicleDetails?.FuelType?.CurrentTextValue
+            <br />
+            <strong>Kaross:</strong> @Model.VehicleDetails?.BodyStyle?.CurrentTextValue
+            <br />
+            <strong>Färg:</strong> @Model.VehicleDetails?.Colour
+            <br />
+            <strong>I bruk:</strong> @Model.VehicleDetails?.RegistrationDate
+            <br />
+            <strong>Märke:</strong> @Model.VehicleDetails?.MakeDescription?.CurrentTextValue
+            <br />
+            <strong>Modell:</strong> @Model.VehicleDetails?.ModelDescription?.CurrentTextValue
+            <br />
+            <strong>Antal säten:</strong> @Model.VehicleDetails?.NumberOfSeats?.CurrentTextValue
+            <br />
+            <strong>VIN:</strong> @Model.VehicleDetails?.VechileIdentificationNumber
+            <br />
+        </div>
+        <div class="col-md-4 text-center">
+            <!-- Bilden här -->
+            <img src="@Model.VehicleDetails?.ImageUrl" alt="Vehicle Image" class="img-fluid rounded" />
+        </div>
+    </div>
+}
+
 
 
 
