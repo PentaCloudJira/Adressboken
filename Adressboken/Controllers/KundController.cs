@@ -33,8 +33,14 @@ namespace Adressboken.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Kund address)
         {
-            await _addressCollection.InsertOneAsync(address);
-            return RedirectToAction("Index");
+
+        if (ModelState.IsValid)
+            {
+                await _addressCollection.InsertOneAsync(address);
+                return RedirectToAction("Index");
+            }
+        return View(address); // Visa vyn med felaktig modell om validering misslyckas
+
         }
 
         public async Task<IActionResult> Edit(string id)
