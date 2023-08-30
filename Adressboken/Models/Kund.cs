@@ -12,7 +12,7 @@ public class Kund
    
     public string? Adress { get; set; }
 
-    [RegularExpression(@"^[\d-]+$", ErrorMessage = "Kan endast innehålla siffror och tecken.")]
+    [RegularExpression(@"^[0-9-]+$", ErrorMessage = "Kan endast innehålla siffror och tecken.")]
     public string? Telefonnummer { get; set; }
 
     [EmailAddress(ErrorMessage = "Ogiltig e-postadress.")]
