@@ -1,23 +1,32 @@
 ﻿@model RegCheckApiResponse
 
-<h2>Vehicle Details</h2>
+<h2>Bildata:</h2>
 
-<div>
-    <strong>Make and Model:</strong> @Model.CarMake.CurrentTextValue @Model.CarModel.CurrentTextValue<br />
-    <strong>Year of Registration:</strong> @Model.RegistrationYear<br />
-    <strong>Engine Size:</strong> @Model.EngineSize.CurrentTextValue<br />
-    <strong>Fuel Type:</strong> @Model.FuelType.CurrentTextValue<br />
-    <strong>Body Style:</strong> @Model.BodyStyle.CurrentTextValue<br />
-    <strong>Colour:</strong> @Model.Colour<br />
-    <strong>Date of Registration:</strong> @Model.RegistrationDate<br />
-    <strong>Make Description:</strong> @Model.MakeDescription.CurrentTextValue<br />
-    <strong>Model Description:</strong> @Model.ModelDescription.CurrentTextValue<br />
-    <strong>Immobiliser:</strong> @Model.Immobiliser.CurrentTextValue<br />
-    <strong>Number of Seats:</strong> @Model.NumberOfSeats.CurrentTextValue<br />
-    <strong>Driver Side:</strong> @Model.DriverSide.CurrentTextValue<br />
-    <strong>Vehicle Identification Number:</strong> @Model.VechileIdentificationNumber<br />
-    <strong>Image URL:</strong> <br />
-    <img src="@Model.ImageUrl" alt="Vehicle Image" />
+<div class="row">
+    <!-- Detaljer kolumn -->
+    <div class="col-md-8">
+        <div class="details">
+            <strong>Märke och modell:</strong> @Model.CarMake.CurrentTextValue @Model.CarModel.CurrentTextValue<br />
+            <strong>Årsmodell:</strong> @Model.RegistrationYear<br />
+            <strong>Motorstorlek:</strong> @Model.EngineSize.CurrentTextValue<br />
+            <strong>Bränsle:</strong> @Model.FuelType.CurrentTextValue<br />
+            <strong>Kaross:</strong> @Model.BodyStyle.CurrentTextValue<br />
+            <strong>Färg:</strong> @Model.Colour<br />
+            <strong>I bruk:</strong> @Model.RegistrationDate<br />
+            <strong>Märke:</strong> @Model.MakeDescription.CurrentTextValue<br />
+            <strong>Modell:</strong> @Model.ModelDescription.CurrentTextValue<br />
+            <strong>Antal säten:</strong> @Model.NumberOfSeats.CurrentTextValue<br />
+            <strong>VIN:</strong> @Model.VechileIdentificationNumber<br />
+        </div>
+    </div>
+
+    <!-- Bild kolumn -->
+    <div class="col-md-4">
+        <div class="image text-center">
+            <img src="@Model.ImageUrl" alt="Vehicle Image" class="img-fluid rounded" />
+        </div>
+    </div>
 </div>
+
 
 

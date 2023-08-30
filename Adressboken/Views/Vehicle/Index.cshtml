@@ -1,14 +1,14 @@
 ﻿@model Adressboken.Models.VehicleSearchViewModel
 
-<h2>Search for Vehicle Details</h2>
+<h2>Sök på regnr.</h2>
 
 @using (Html.BeginForm("Search", "Vehicle", FormMethod.Post))
 {
     <div class="form-group">
-        @Html.LabelFor(m => m.RegistrationNumber)
-        @Html.TextBoxFor(m => m.RegistrationNumber, new { @class = "form-control" })
+        @Html.LabelFor(m => m.Regnummer)
+        @Html.TextBoxFor(m => m.Regnummer, new { @class = "form-control" })
     </div>
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary">Sök</button>
 }
 
 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))

@@ -23,7 +23,7 @@ namespace Adressboken.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchAsync(VehicleSearchViewModel viewModel)
         {
-            string registrationNumber = viewModel.RegistrationNumber;
+            string registrationNumber = viewModel.Regnummer;
 
             // Anropa RegCheckApiService för att söka efter fordonets uppgifter
             var vehicleDetails = await _regCheckApiService.GetVehicleDetailsAsync(registrationNumber);
