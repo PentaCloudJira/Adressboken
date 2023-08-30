@@ -2,6 +2,6 @@
 {
     public class VehicleSearchViewModel
     {
-        public string RegistrationNumber { get; set; }
+        public string? Regnummer { get; set; }
     }
 }
