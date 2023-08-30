@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 public class Kund
 {
@@ -10,8 +11,11 @@ public class Kund
     public string? Namn { get; set; }
    
     public string? Adress { get; set; }
+
+    [RegularExpression(@"^[\d-]+$", ErrorMessage = "Kan endast innehålla siffror och tecken.")]
     public string? Telefonnummer { get; set; }
 
+    [EmailAddress(ErrorMessage = "Ogiltig e-postadress.")]
     public string? Email {get; set;}
 
     public string? Bilmodell {get; set; }
