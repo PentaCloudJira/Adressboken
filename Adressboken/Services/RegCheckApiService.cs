@@ -27,6 +27,7 @@ namespace Adressboken.Services
 
                 XNamespace ns = "http://regcheck.org.uk";
                 XElement vehicleJsonElement = xdoc.Root.Element(ns + "vehicleJson");
+                
                 if (vehicleJsonElement != null)
                 {
                     string vehicleJsonString = vehicleJsonElement.Value;
