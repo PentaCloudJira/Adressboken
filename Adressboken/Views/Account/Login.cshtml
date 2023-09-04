@@ -5,29 +5,42 @@
 }
 
 <style>
+    .background-image {
+        background-image: url('https://fra1.digitaloceanspaces.com/knivstamotor/cmsplugins/parallax_image_header/images/1591991335-bilverkstad.jpg');
+        background-size: cover; /* Ändra här för att täcka hela bakgrunden */
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+    }
+
     .login-container {
         max-width: 400px;
         margin: 100px auto 0;
         padding: 20px;
-        background-color: #fff;
+        background-color: rgba(255, 255, 255, 0.8); /* Bakgrundsfärg med lite transparens */
         border: 1px solid #ccc;
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
+
     .login-header {
         text-align: center;
         margin-bottom: 20px;
     }
+
     .form-group label {
         font-weight: bold;
     }
+
     .form-group input {
         border-radius: 5px;
     }
-    .form-group input:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
     .btn-custom {
         background-color: #787a7b;
         color: #fff;
@@ -36,34 +49,43 @@
         margin-top: 10px;
         border-radius: 5px;
     }
-    .btn-custom:hover {
-        background-color: #666768;
-    }
-</style>
 
-<div class="container">
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-6">
-            <div class="login-container">
-                <h2 class="login-header">Logga in</h2>
-                <form asp-action="Login" asp-controller="Account" method="post" asp-antiforgery="true">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Username">Användare:</label>
-                        <input type="text" id="Username" asp-for="Username" class="form-control" required />
-                        <span asp-validation-for="Username" class="text-danger"></span>
+        .btn-custom:hover {
+            background-color: #666768;
+        }
+</style>
+<h1 class="display-4 text-center">Bengts Bilservice</h1>
+<div class="background-image">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-14">
+                <div class="login-container">
+                    <h2 class="login-header">Logga in</h2>
+                    <form asp-action="Login" asp-controller="Account" method="post" asp-antiforgery="true">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Username">Användare:</label>
+                            <input type="text" id="Username" asp-for="Username" class="form-control" required />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password">Lösenord:</label>
+                            <input type="password" id="Password" asp-for="Password" class="form-control" required />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-custom">Logga in</button>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="@Url.Action("CognitoLogin", "Account")" class="btn btn-custom">Logga in med Cognito</a>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Password">Lösenord:</label>
-                        <input type="password" id="Password" asp-for="Password" class="form-control" required />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-                    <button type="submit" class="btn btn-custom">Logga in</button>
-                </form>
-                <div class="text-center mt-3">
-                    <a href="@Url.Action("CognitoLogin", "Account")" class="btn btn-custom">Logga in med Cognito</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+
