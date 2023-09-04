@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Adressboken.Data;
 using Adressboken.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Adressboken
 {
@@ -52,6 +53,12 @@ namespace Adressboken
                 };
             });
 
+            builder.Services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
 
             // MongoDB-anslutningen
             var connectionString = "mongodb+srv://martinsandung:IDjcjDU7aeePGhEX@cluster1.chdrb4f.mongodb.net/?retryWrites=true&w=majority";
@@ -60,11 +67,18 @@ namespace Adressboken
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(databaseName);
             builder.Services.AddSingleton(database);
-            
+
             builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
             var app = builder.Build();
 
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "";
+
+            if (!string.IsNullOrEmpty(port))
+            {
+                app.Urls.Add($"http://*:{port}");
+            }
+            
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -72,6 +86,8 @@ namespace Adressboken
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseForwardedHeaders();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
