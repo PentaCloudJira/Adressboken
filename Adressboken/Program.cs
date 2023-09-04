@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Adressboken.Data;
 using Adressboken.Services;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Adressboken
@@ -63,6 +64,13 @@ namespace Adressboken
             
             builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
+            builder.Services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -72,6 +80,8 @@ namespace Adressboken
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseForwardedHeaders();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
