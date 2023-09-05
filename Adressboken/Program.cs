@@ -61,7 +61,7 @@ namespace Adressboken
             });
 
             // MongoDB-anslutningen
-            var connectionString = "mongodb+srv://martinsandung:IDjcjDU7aeePGhEX@cluster1.chdrb4f.mongodb.net/?retryWrites=true&w=majority";
+            var connectionString = builder.Configuration["ConnectionString:DefaultConnection"];
             var databaseName = "Person";
 
             var client = new MongoClient(connectionString);
