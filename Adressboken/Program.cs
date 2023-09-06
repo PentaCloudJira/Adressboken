@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 using System.Security.Claims;
 using Serilog;
-using Serilog.Core;
 using Serilog.Formatting.Compact;
 using Utilities.Logging;
 
@@ -58,7 +57,7 @@ namespace Adressboken
                     },
                     OnTokenValidated = context =>
                     {
-                        var claims = context.Principal.Claims
+                        var claims = context.Principal?.Claims
                         .Append(new Claim(ClaimTypes.Name, context.Principal.FindFirst("cognito:username").Value));
                         var claimsIdentity = new ClaimsIdentity(claims, context.Scheme.Name, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                         context.Principal = new ClaimsPrincipal(claimsIdentity);
@@ -81,7 +80,7 @@ namespace Adressboken
             var userNameEnricher = serviceProvider.GetService<UserNameEnricher>();
             // Configure Serilog
             Log.Logger = new LoggerConfiguration()
-                // .Enrich.FromLogContext() // Enrich log messages with additional context (e.g., request information).
+                .Enrich.FromLogContext() // Enrich log messages with additional context (e.g., request information).
                 .Enrich.With(userNameEnricher) // Enrich log messages with the current user name.
                 .WriteTo.Console(new RenderedCompactJsonFormatter()) // Output logs in JSON format.
                 .CreateLogger();
