@@ -50,12 +50,13 @@ namespace Adressboken
                         return Task.CompletedTask;
                     }
                 };
+                
             });
 
 
             // MongoDB-anslutningen
-            var connectionString = "mongodb+srv://martinsandung:IDjcjDU7aeePGhEX@cluster1.chdrb4f.mongodb.net/?retryWrites=true&w=majority";
-            var databaseName = "Person";
+            var connectionString = builder.Configuration["MongoDb:ConnectionString"] ?? "";
+            var databaseName = builder.Configuration["MongoDb:DatabaseName"] ?? "";
 
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(databaseName);
@@ -105,5 +106,6 @@ namespace Adressboken
 
             app.Run();
         }
+   
     }
 }

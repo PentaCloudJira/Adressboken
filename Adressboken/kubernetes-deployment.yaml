@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-adressboken-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: your-app
+  template:
+    metadata:
+      labels:
+        app: your-app
+    spec:
+      containers:
+      - name: your-app
+        image: larsson233/adressbokenkubernetes
+        ports:
+        - containerPort: 80
+        envFrom:
+          - configMapRef:
+              name: mongodb-config
