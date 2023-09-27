@@ -91,11 +91,8 @@ namespace Adressboken
             builder.Logging.AddSerilog(Log.Logger);
             // MongoDB-anslutningen
 
-            var connectionString = builder.Configuration["MongoDb:ConnectionString"] ?? "";
-            var databaseName = builder.Configuration["MongoDb:DatabaseName"] ?? "";
-            var connectionString = builder.Configuration["ConnectionString:DefaultConnection"];
+            var connectionString = "mongodb+srv://martinsandung:IDjcjDU7aeePGhEX@cluster1.chdrb4f.mongodb.net/?retryWrites=true&w=majority";
             var databaseName = "Person";
-
 
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(databaseName);
