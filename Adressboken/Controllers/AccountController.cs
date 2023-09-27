@@ -14,10 +14,10 @@ public class AccountController : Controller
     private const string MockedPassword = "trabant"; // Ev byt ut senare mot en hashad variant?
     public IActionResult Login()
     {
-    return View();
+        return View();
     }
     [HttpPost]
-    [ValidateAntiForgeryToken] 
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> LoginAsync(LoginViewModel model)
     {
         // Check model validators
@@ -25,8 +25,8 @@ public class AccountController : Controller
         {
             return View(model);
         }
-            // Mocked user verification - replace with real authentication
-            if (model.Username == MockedUsername && model.Password == MockedPassword)
+        // Mocked user verification - replace with real authentication
+        if (model.Username == MockedUsername && model.Password == MockedPassword)
         {
             // Set up the session/cookie for the authenticated user.
             var claims = new[] { new Claim(ClaimTypes.Name, model.Username) };
@@ -36,15 +36,15 @@ public class AccountController : Controller
 
             return RedirectToAction("Index", "Kund"); // Bytte ut "Index", "Home" mot "Index", "Kund" för att komma till Kundregistret
         }
-            ModelState.AddModelError(string.Empty, "Nu blev det knas. Försök igen"); // Generellt felmeddelande
-            return View(model);
+        ModelState.AddModelError(string.Empty, "Nu blev det knas. Försök igen"); // Generellt felmeddelande
+        return View(model);
     }
     public IActionResult CognitoLogin()
     {
         return Challenge(
         new AuthenticationProperties
         {
-        RedirectUri = Url.Action("Index", "Kund")
+            RedirectUri = Url.Action("Index", "Kund")
         },
         OpenIdConnectDefaults.AuthenticationScheme);
     }

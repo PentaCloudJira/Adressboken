@@ -7,37 +7,38 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
     <link rel="stylesheet" href="~/Adressboken.styles.css" asp-append-version="true">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Hem</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Vehicle" asp-action="Index">Sök Reg.</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Kund" asp-action="Index">Kundregister</a>
-                        </li>
-                        <li class="nav-item">
-                            @if (Context.User.Identity.IsAuthenticated)
-                            {
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logga ut</a>
-                            }
-                            else
-                            {
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Logga in</a>
-                            }
-                        </li>
+                        @if (Context.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user"></i> Välkommen, @User.Identity.Name
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end position-absolute" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/Kund/Index"><i class="fas fa-lock"></i> Kundregister</a>
+                                    <a class="dropdown-item" href="/Vehicle/Index"><i class="fas fa-lock"></i> Sök Reg.</a>
+                                    <a class="dropdown-item" href="/Account/Logout" style="color: #fff; background-color: #dc3545;"><i class="fas fa-sign-out-alt"></i> Logga ut</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -49,6 +50,7 @@
             &copy; 2023 - Bengts Bilservice <a asp-area="" asp-controller="Home" a></a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
