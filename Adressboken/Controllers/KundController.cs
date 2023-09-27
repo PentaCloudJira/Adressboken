@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
-
+using Microsoft.Extensions.Configuration;
 
 namespace Adressboken.Controllers
 {
@@ -11,7 +11,7 @@ namespace Adressboken.Controllers
     {
         private readonly IMongoCollection<Kund> _addressCollection;
         private readonly IEmailSender emailSender;
-
+        
         public KundController(IMongoDatabase database, IEmailSender emailSender)
         {
             _addressCollection = database.GetCollection<Kund>("addresses");

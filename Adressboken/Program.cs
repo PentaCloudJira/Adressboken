@@ -64,6 +64,7 @@ namespace Adressboken
                         return Task.CompletedTask;
                     }
                 };
+                
             });
 
             builder.Services.Configure<ForwardedHeadersOptions>(options =>
@@ -89,8 +90,12 @@ namespace Adressboken
             builder.Logging.ClearProviders();
             builder.Logging.AddSerilog(Log.Logger);
             // MongoDB-anslutningen
+
+            var connectionString = builder.Configuration["MongoDb:ConnectionString"] ?? "";
+            var databaseName = builder.Configuration["MongoDb:DatabaseName"] ?? "";
             var connectionString = builder.Configuration["ConnectionString:DefaultConnection"];
             var databaseName = "Person";
+
 
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(databaseName);
@@ -149,5 +154,6 @@ namespace Adressboken
 
             app.Run();
         }
+   
     }
 }
