@@ -35,13 +35,13 @@ jobs:
     # Update the Kubernetes manifests to use the new image tag
     - name: Update Kubernetes manifests
       run: |
-        sed -i 's|ghcr.io/larsson233/todoapp:.*|ghcr.io/larsson233/todoapp:${{ github.sha }}|' todo-app/kubernetes-deployment.yaml
+        sed -i 's|ghcr.io/larsson233/todoapp:.*|ghcr.io/larsson233/todoapp:${{ github.sha }}|' todo-app/templates/kubernetes-deployment.yaml
   
     # Commit and push the updated manifests back to the repository
     - name: Commit and push updated manifests
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "github-actions@github.com"
-        git add todo-app/kubernetes-deployment.yaml
+        git add todo-app/templates/kubernetes-deployment.yaml
         git commit -m "Update webapp image to ${{ github.sha }}"
         git push
