@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: your-app
-        image: ghcr.io/larsson233/todoapp:cb445882884165ec6591b48b9ca5345033dc0101
+        image: larsson233/todoapp
         ports:
         - containerPort: 80
         envFrom:
